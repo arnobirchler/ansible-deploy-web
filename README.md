@@ -22,7 +22,8 @@ to encrypt a string (like a password).
 
 If setup is done, you just need to run 
 ```bash
-ansible-playbook -i hosts install.yml --vault-password-file .vault_pass
+chmod +x deploy.sh install.sh rollback.sh
+./install.sh update
 ```
 
 When installation is done you can connect to the server with SSH key.
