@@ -1,9 +1,9 @@
 [web]
-xxx.xxx.xxx.xxx
+1.2.3.4
 
 [web:vars]
 user=user
-prefix_ip=xxx.xxx.xxx
+prefix_ip=1.2.3
 ansible_connection=ssh
 ansible_ssh_user=root
 ansible_ssh_pass=ssh_pass
