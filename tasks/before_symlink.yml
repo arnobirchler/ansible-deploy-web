@@ -8,7 +8,7 @@
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
     creates: "{{ ansistrano_shared_path }}/app.key"
-- name: LARAVEL | App key generate
+- name: LARAVEL | Reading app generate
   command: "cat {{ ansistrano_shared_path }}/app.key"
   register: app_key
 - name: LARAVEL | .env
