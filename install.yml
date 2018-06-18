@@ -1,0 +1,38 @@
+---
+- name: Server install
+  hosts: web
+  remote_user: root
+  tasks:
+  - include_vars:
+      file: vars.yml
+  - name: Install User & SSH
+    include_role:
+      name: arnobirchler.ssh-access
+  - name: Install Tools
+    include_role:
+      name: arnobirchler.tools
+  - name: APT | Update & upgrade
+    apt:
+      upgrade: dist
+      update_cache: yes
+  - name: ROLES | secure
+    include_role:
+      name: secure
+  - name: ROLES | Tools
+    include_role:
+      name: tools
+  - name: ROLES | MySQL
+    include_role:
+      name: mysql
+  - name: ROLES | PHP
+    include_role:
+      name: php
+  - name: ROLES | Nginx
+    include_role:
+      name: nginx
+  - command: "git init --bare {{ ansistrano_git_repo }}"
+    args:
+      creates: "{{ ansistrano_git_repo }}"
+    become: true
+    become_user: "{{user}}"
+

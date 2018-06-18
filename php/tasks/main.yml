@@ -1,0 +1,34 @@
+---
+- name: PHP | Add sury.org key
+  apt_key:
+    url: "https://packages.sury.org/php/apt.gpg"
+    state: present
+- name: PHP | Add sury.org list
+  shell: echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
+  args:
+    creates: /etc/apt/sources.list.d/php.list
+- name: PHP | Install
+  apt:
+    update_cache: yes
+    name:
+      - "php{{ php_version }}-fpm"
+      - "php{{ php_version }}-mysql"
+      - "php{{ php_version }}-mbstring"
+      - "php{{ php_version }}-xml"
+      - "php{{ php_version }}-zip"
+      - "php{{ php_version }}-intl"
+    state: present
+- name: PHP | Install composer
+  shell: |
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    php -r "unlink('composer-setup.php');"
+  args:
+    creates: /usr/local/bin/composer
+- name: PHP | Disable errors
+  lineinfile:
+    dest: "/etc/php/{{ php_version }}/fpm/php.ini"
+    regexp: "display_errors"
+    line: "display_errors = 0"
+  notify: php-restart

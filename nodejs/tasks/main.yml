@@ -1,0 +1,20 @@
+---
+- name: NODEJS | Download installer
+  get_url:
+    url: "https://deb.nodesource.com/setup_{{ nodejs_version }}.x"
+    dest: ~/nodejs.installer
+    mode: 0755
+- name: NODEJS | install repo
+  command: ~/nodejs.installer
+  args:
+    creates: /etc/apt/sources.list.d/nodesource.list
+- name: NODEJS | install nodejs
+  apt:
+    name:
+      - nodejs
+    update_cache: true
+- name: "NODEJS | install globals {{ item }}"
+  npm:
+    name: "{{ item }}"
+    global: true
+  with_items: "{{ npm_globals }}"

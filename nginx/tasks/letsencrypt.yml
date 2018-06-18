@@ -1,0 +1,51 @@
+---
+- name: "Letsencrypt | Create tls directory"
+  file:
+    path: "/etc/nginx/tls"
+    state: directory
+- name: "Letsencrypt | Create ticket.key"
+  command: "openssl rand -out /etc/nginx/tls/ticket.key 48"
+  args:
+    creates: "/etc/nginx/tls/ticket.key"
+- name: "Letsencrypt | Create dhparam.pem"
+  command: "openssl dhparam -out /etc/nginx/tls/dhparam.pem 2048"
+  args:
+    creates: "/etc/nginx/tls/dhparam.pem"
+- name: "Letsencrypt | Setup params.conf"
+  template:
+    src: tls.j2
+    dest: "/etc/nginx/tls/params.conf"
+- name: Letsencrypt | Download
+  get_url:
+    url: "https://get.acme.sh"
+    dest: "~/acme-setup.sh"
+    mode: "u+x"
+- name: Letsencrypt | Install
+  command: "sh ~/acme-setup.sh"
+  args:
+    creates: "~/.acme.sh/acme.sh"
+- name: Letsencrypt | Remove setup
+  file:
+    path: "~/acme-setup.sh"
+    state: absent
+- name: "Letsencrypt | Create /srv/certs/{{ domain }} directory"
+  file:
+    path: "/srv/certs/{{ domain }}"
+    state: directory
+- name: "Letsencrypt | Create {{ domain }} certs"
+  command: "~/.acme.sh/acme.sh --issue -d {{ domain | quote }} -w {{ ansistrano_deploy_to | quote }}/current/public -k 4096"
+  args:
+    creates: "~/.acme.sh/{{ domain }}/fullchain.cer"
+- name: "Letsencrypt | remove public directory"
+  file:
+    path: "{{ ansistrano_deploy_to }}"
+    state: absent
+- name: "Letsencrypt | Setup {{ domain }} certs"
+  shell: |
+    ~/.acme.sh/acme.sh --install-cert -d {{ domain }} \
+      --cert-file      /srv/certs/{{ domain }}/cert.pem  \
+      --key-file       /srv/certs/{{ domain }}/key.pem  \
+      --fullchain-file /srv/certs/{{ domain }}/fullchain.pem \
+      --reloadcmd     "systemctl reload nginx"
+  args:
+    creates: "/srv/certs/{{ domain }}/fullchain.pem"

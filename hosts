@@ -1,0 +1,9 @@
+[web]
+192.168.84.131
+
+[web:vars]
+user=zuckerpflimle
+prefix_ip=192.168.84
+ansible_connection=ssh
+ansible_ssh_user=root
+ansible_ssh_pass=16101997ab

@@ -1,0 +1,57 @@
+---
+- name: FIREWALL | Install UFW
+  apt:
+    name: ufw
+    state: present
+- name: FIREWALL | Policy
+  ufw:
+    direction: "{{ item.direction }}"
+    policy: "{{ item.policy }}"
+  with_items:
+    - { direction: incoming, policy: deny }
+    - { direction: outgoing, policy: allow }
+- name: FIREWALL | Open SSH
+  ufw:
+    rule: limit
+    port: ssh
+- name: FIREWALL | Open HTTP/S
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  with_items:
+    - http
+    - https
+# - name: FIREWALL | Open OVH icmp
+#   ufw:
+#     rule: allow
+#     src: "{{item}}"
+#     proto: icmp
+#   with_items:
+#     - 37.187.231.251
+#     - 151.80.231.244
+#     - 151.80.231.245
+#     - 151.80.231.246
+#     - 151.80.231.247
+#     - 213.186.33.62
+#     - 92.222.184.0/24
+#     - 92.222.185.0/24
+#     - 92.222.186.0/24
+#     - 167.114.37.0/24
+#     - 231.186.45.4
+#     - 213.251.184.9
+#     - 37.59.0.235
+#     - 8.33.137.2
+#     - 213.186.33.13
+#     - 213.186.50.98
+#     - "{{ prefix_ip }}.250"
+#     - "{{ prefix_ip }}.251"
+- name: FIREWALL | Open OVH RTM
+  ufw:
+    rule: allow
+    src: "{{ prefix_ip }}.251"
+    port: '6100:6200'
+    proto: udp
+
+- name: FIREWALL | Enabled
+  ufw:
+    state: enabled

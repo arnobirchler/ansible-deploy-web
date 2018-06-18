@@ -1,0 +1,16 @@
+---
+- name: TOOLS | Install
+  apt:
+    name:
+      - git
+      - tree
+      - htop
+      - safe-rm
+      - redis-server
+      - unzip
+      - apt-transport-https
+      - lsb-release
+      - ca-certificates
+      - curl
+      - wget
+    state: present

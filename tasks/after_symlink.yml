@@ -1,0 +1,36 @@
+- name: LARAVEL | NPM install
+  command: npm install
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | build assets
+  command: npm run prod
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+# END.YML
+- name: LARAVEL | Config cache
+  shell: php artisan config:cache
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Cache clear
+  shell: php artisan cache:clear
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | View clear
+  shell: php artisan view:clear
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Migrate
+  shell: php artisan migrate --force
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Seed
+  shell: php artisan db:seed --force
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+    creates: "{{ ansistrano_shared_path }}/seeded"
+  when: ansistrano_shared_path is defined
+- name: LARAVEL | Seeded
+  file:
+    path: "{{ ansistrano_shared_path }}/seeded"
+    state: touch
+  when: ansistrano_shared_path is defined

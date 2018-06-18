@@ -1,0 +1,36 @@
+sudoer: admin
+php_version: 7.2
+nodejs_version: 8
+npm_globals: []
+#nginx
+redirect_domain: www.zuckerpflimle.fr
+domain: "zuckerpflimle.fr"
+domain_alias: "event.zuckerpflimle.fr manager.zuckerpflimle.fr shop.zuckerpflimle.fr"
+# Ansistrano
+ansistrano_deploy_to: "/home/{{ user }}/{{ domain }}"
+ansistrano_deploy_via: git
+ansistrano_git_repo: "{{ ansistrano_deploy_to }}.git"
+ansistrano_keep_realeases: 5
+ansistrano_shared_paths: ["public/uploads", "storage"]
+ansistrano_shared_files: [".env"]
+ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
+ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/after_symlink.yml"
+ansistrano_allow_anonymous_stats: false
+# Mysql
+mysql_db: zuckerpflimle
+mysql_user: zuckerpflimle
+mysql_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33633165393632633363396138306664633364313533613161386163626135323433336638623839
+          6365323864313636386264306663393836313266633962630a353536613130633664306439623832
+          36323933346533346635643436626663316133643661663262323730643163643431333633333335
+          3164363730326236360a353463323437643832666236343163386561396661323135306338623437
+          30363964616264643433646431623663636331353330306265393333373564323335
+mysql_root_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66396137396263616466386433616335313165623939386463333665363431353834313534306630
+          3731643631343961306439366235663063613534306630650a643831336261323364653830326430
+          38363338313037383433306238353663666534386635393864626435333830356363623832393236
+          3163303066353966660a613265656663323464303936366436383136373764326334363739303939
+          62616663613266626130303433663263336431333163626532653865653464303863
+
