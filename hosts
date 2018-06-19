@@ -6,4 +6,4 @@ user=user
 prefix_ip=1.2.3
 ansible_connection=ssh
 ansible_ssh_user=root
-ansible_ssh_pass=ssh_pass
+ansible_ssh_private_key=~/.ssh/id_rsa
