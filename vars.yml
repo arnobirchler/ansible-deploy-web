@@ -16,7 +16,7 @@ ansistrano_shared_files: [".env"]
 ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
 ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/after_symlink.yml"
 ansistrano_allow_anonymous_stats: false
-ansistrano_git_identity_key_path:~/.ssh/id_rsa
+ansistrano_git_identity_key_path: ~/.ssh/id_rsa
 # Mysql
 mysql_db: database
 mysql_user: user
