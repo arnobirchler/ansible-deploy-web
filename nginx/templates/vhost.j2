@@ -6,7 +6,7 @@ server {
     index index.php index.html;
     error_page 404 /index.php;
 
-    root {{ ansistrano_deploy_to }}/public;
+    root {{ ansistrano_deploy_to }}/current/public;
     server_name {{ domain }} {{domain_alias}};
 
     add_header X-Frame-Options SAMEORIGIN;

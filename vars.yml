@@ -4,7 +4,7 @@ nodejs_version: 8
 npm_present: false
 npm_globals: []
 #nginx
-redirect_domain: www.domain.com
+redirect_domain: domain.com
 domain: "domain.com"
 domain_alias: "shop.domain.com back.domain.com"
 # Ansistrano
