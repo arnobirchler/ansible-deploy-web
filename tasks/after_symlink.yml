@@ -32,7 +32,9 @@
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
     creates: "{{ ansistrano_shared_path }}/seeded"
-  when: ansistrano_shared_path is defined
+  when: 
+    - ansistrano_shared_path is defined
+    - laravel_seed == true
 - name: LARAVEL | Seeded
   file:
     path: "{{ ansistrano_shared_path }}/seeded"
