@@ -2,10 +2,14 @@
   command: npm install
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
+  when: 
+    - npm_present == true
 - name: LARAVEL | build assets
   command: npm run prod
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
+  when:
+    - npm_present == true
 # END.YML
 - name: LARAVEL | Config cache
   shell: php artisan config:cache

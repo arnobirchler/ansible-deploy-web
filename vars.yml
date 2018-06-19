@@ -1,6 +1,7 @@
 sudoer: admin
 php_version: 7.2
 nodejs_version: 8
+npm_present: false
 npm_globals: []
 #nginx
 redirect_domain: www.domain.com
