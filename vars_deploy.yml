@@ -1,3 +1,5 @@
+domain: domain.fr
+app_env: production
 # Ansistrano
 ansistrano_deploy_to: /home/{{ user }}/{{ domain }}
 ansistrano_deploy_via: git
