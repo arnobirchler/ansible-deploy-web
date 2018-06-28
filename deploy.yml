@@ -4,6 +4,6 @@
   remote_user: "{{ user }}"
   tasks:
   - include_vars:
-      file: vars.yml
+      file: vars_deploy.yml
   - include_role:
       name: carlosbuenosvinos.ansistrano-deploy
