@@ -1,0 +1,13 @@
+# Ansistrano
+ansistrano_deploy_to: /home/{{ user }}/{{ domain }}
+ansistrano_deploy_via: git
+ansistrano_git_repo: "https://github.com/username/projet.git"
+ansistrano_keep_realeases: 5
+ansistrano_shared_paths: ["public/uploads", "storage"]
+ansistrano_shared_files: [".env"]
+ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
+ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/after_symlink.yml"
+ansistrano_allow_anonymous_stats: false
+ansistrano_git_identity_key_path: ~/.ssh/id_rsa
+#
+laravel_seed: false

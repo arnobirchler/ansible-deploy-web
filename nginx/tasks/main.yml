@@ -15,6 +15,7 @@
   template:
     src: default.j2
     dest: "/etc/nginx/sites-enabled/default"
+  when: redirect_domain is defined
 # - name: "Nginx | Pre Vhost {{ domain }}"
 #   template:
 #     src: pre-vhost.j2
@@ -27,3 +28,7 @@
     src: vhost.j2
     dest: "/etc/nginx/sites-enabled/{{ domain }}"
   notify: nginx reload
+- name: "Nginx | dev_Vhost {{ dev_domain }}"
+  template:
+    src: vhost_dev.j2
+    dest: "/etc/nginx/site-enabled/{{dev_domain}}"    

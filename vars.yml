@@ -7,19 +7,12 @@ npm_globals: []
 redirect_domain: domain.com
 domain: "domain.com"
 domain_alias: "shop.domain.com back.domain.com"
-# Ansistrano
-ansistrano_deploy_to: "/home/{{ user }}/{{ domain }}"
-ansistrano_deploy_via: git
-ansistrano_git_repo: "https://github.com/username/projet.git"
-ansistrano_keep_realeases: 5
-ansistrano_shared_paths: ["public/uploads", "storage"]
-ansistrano_shared_files: [".env"]
-ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
-ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/after_symlink.yml"
-ansistrano_allow_anonymous_stats: false
-ansistrano_git_identity_key_path: ~/.ssh/id_rsa
-#
-laravel_seed: false
+deploy_to: "/home/{{ user }}/{{ domain }}"
+
+dev_domain: "dev.domain.com"
+dev_domain_alias: "dev.shop.domain.com dev.back.domain.com"
+dev_deploy_to: "/home/{{ user }}/{{ dev_domain }}"
+
 # Mysql
 mysql_db: database
 mysql_user: user

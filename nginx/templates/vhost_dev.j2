@@ -6,8 +6,8 @@ server {
     index index.php index.html;
     error_page 404 /index.php;
 
-    root {{ deploy_to }}/current/public;
-    server_name {{ domain }} {{ domain_alias }};
+    root {{ dev_deploy_to }}/current/public;
+    server_name {{ dev_domain }} {{ dev_domain_alias }};
 
     add_header X-Frame-Options SAMEORIGIN;
     add_header X-XSS-Protection "1; mode=block";
@@ -30,7 +30,7 @@ server {
     {% endif %}
 
     location ~ /.well-known {
-        root {{ deploy_to }}/current/public;
+        root {{ dev_deploy_to }}/current/public;
         allow all;
     }
 
