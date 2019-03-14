@@ -3,6 +3,7 @@
     command: install
     working_dir: "{{ ansistrano_release_path.stdout }}"
     optimize_autoloader: true
+    no-dev: false
 - name: LARAVEL | App key generate
   shell: "php artisan key:generate --show > {{ ansistrano_shared_path }}/app.key"
   args:
