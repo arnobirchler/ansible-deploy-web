@@ -27,5 +27,3 @@
     - "{{ ansistrano_shared_path }}/storage/framework/testing"
     - "{{ ansistrano_shared_path }}/storage/framework/views"
     - "{{ ansistrano_shared_path }}/storage/logs"
-- name: LARAVEL | Config storage link
-  shell: php artisan storage:link

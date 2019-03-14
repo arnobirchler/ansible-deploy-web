@@ -1,3 +1,7 @@
+- name: LARAVEL | Config storage link
+  shell: php artisan storage:link
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
 - name: LARAVEL | NPM install
   command: npm install
   args:
