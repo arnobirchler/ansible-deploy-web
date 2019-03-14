@@ -5,9 +5,11 @@
   tasks:
   - include_vars:
       file: vars_deploy_specif.yml
+  - include_vars:
       file: vars_deploy.yml
-  - name: Fetch bare repo at {{ ansistrano_deploy_to }}
-      shell: |
+  - name: Fetch bare repo at {{ ansistrano_git_repo }}
+    shell: |
+          cd {{ansistrano_git_repo}}
           git fetch dist {{ansistrano_git_branch}}:{{ansistrano_git_branch}}
   - include_role:
       name: ansistrano.deploy
