@@ -1,4 +1,4 @@
 - src: arnobirchler.ssh-access
 - src: arnobirchler.tools
-- src: carlosbuenosvinos.ansistrano-deploy 
-- src: carlosbuenosvinos.ansistrano-rollback
+- src: ansistrano.deploy 
+- src: ansistrano.rollback
