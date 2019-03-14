@@ -4,6 +4,10 @@
   remote_user: "{{ user }}"
   tasks:
   - include_vars:
+      file: vars_deploy_specif.yml
       file: vars_deploy.yml
+  - name: Fetch bare repo at {{ ansistrano_deploy_to }}
+      shell: |
+          git fetch dist {{ansistrano_git_branch}}:{{ansistrano_git_branch}}
   - include_role:
       name: ansistrano.deploy
