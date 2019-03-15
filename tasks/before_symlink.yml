@@ -17,15 +17,16 @@
     dest: "{{ ansistrano_shared_path }}/.env"
 - name: LARAVEL | Storage directory
   file:
-    path: "{{ item }}"
-    mode: 0664
+    path: "{{ ansistrano_release_path.stdout }}"
+    mode: 0755
     state: directory
+    owner: {{ user }}
     group: www-data
-  with_items:
-    - "{{ ansistrano_release_path.stdout }}/bootstrap/cache"
-    - "{{ ansistrano_shared_path }}/storage/app/public"
-    - "{{ ansistrano_shared_path }}/storage/framework/cache"
-    - "{{ ansistrano_shared_path }}/storage/framework/sessions"
-    - "{{ ansistrano_shared_path }}/storage/framework/testing"
-    - "{{ ansistrano_shared_path }}/storage/framework/views"
-    - "{{ ansistrano_shared_path }}/storage/logs"
+    recurse: yes
+- name: LARAVEL | Storage file
+  file:
+    path: "{{ ansistrano_release_path.stdout }}"
+    mode: 0644
+    owner: {{ user }}
+    group: www-data
+    recurse: yes
