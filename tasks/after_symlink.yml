@@ -19,10 +19,6 @@
   shell: php artisan config:cache
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
-- name: LARAVEL | Cache clear
-  shell: php artisan cache:clear
-  args:
-    chdir: "{{ ansistrano_release_path.stdout }}"
 - name: LARAVEL | View clear
   shell: php artisan view:clear
   args:
@@ -44,3 +40,7 @@
     path: "{{ ansistrano_shared_path }}/seeded"
     state: touch
   when: ansistrano_shared_path is defined
+- name: LARAVEL | Cache clear
+  shell: php artisan cache:clear
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
