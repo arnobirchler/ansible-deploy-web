@@ -17,6 +17,7 @@
     dest: "{{ ansistrano_shared_path }}/.env"
 - name: LARAVEL | Dir & File permission
   become: yes
+  becom_user: admin
   shell: "find {{ ansistrano_release_path.stdout }} -type f -exec chmod 644 {} \;
           find {{ ansistrano_release_path.stdout }} -type d -exec chmod 755 {} \;
           chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache;
