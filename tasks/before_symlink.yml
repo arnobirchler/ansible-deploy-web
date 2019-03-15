@@ -15,11 +15,9 @@
   template:
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
-- name: LARAVEL | Storage directory
-  file:
-    path: "{{ ansistrano_release_path.stdout }}"
-    mode: 0755
-    state: directory
-    owner: "{{ user }}"
-    group: www-data
-    recurse: yes
+- name: LARAVEL | Dir & File permission
+  become: yes
+  shell: "find {{ ansistrano_release_path.stdout }} -type f -exec chmod 644 {} \;
+          find {{ ansistrano_release_path.stdout }} -type d -exec chmod 755 {} \;
+          chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache;
+          chmod -R ug+rwx {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache"
