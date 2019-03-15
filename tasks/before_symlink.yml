@@ -21,6 +21,7 @@
     mode: 0777
     state: directory
   with_items:
+    - "{{ ansistrano_release_path.stdout }}/bootstrap/cache"
     - "{{ ansistrano_shared_path }}/storage/app/public"
     - "{{ ansistrano_shared_path }}/storage/framework/cache"
     - "{{ ansistrano_shared_path }}/storage/framework/sessions"
