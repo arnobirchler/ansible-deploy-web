@@ -18,8 +18,9 @@
 - name: LARAVEL | Storage directory
   file:
     path: "{{ item }}"
-    mode: 0777
+    mode: 0664
     state: directory
+    group: www-data
   with_items:
     - "{{ ansistrano_release_path.stdout }}/bootstrap/cache"
     - "{{ ansistrano_shared_path }}/storage/app/public"
