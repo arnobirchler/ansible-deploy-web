@@ -15,9 +15,3 @@
   template:
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
-- name: LARAVEL | Dir & File permission
-  shell: |
-    sudo find {{ ansistrano_release_path.stdout }} -type f -exec chmod 644 {} \
-    sudo find {{ ansistrano_release_path.stdout }} -type d -exec chmod 755 {} \
-    sudo chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
-    sudo chmod -R ug+rwx {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
