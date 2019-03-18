@@ -15,3 +15,7 @@
   template:
     src: env.j2
     dest: "{{ ansistrano_shared_path }}/.env"
+- name: LARAVEL | Dir & File permission
+  shell: |
+    sudo chgrp -R www-data storage bootstrap/cache
+    sudo chmod -R ug+rwx storage bootstrap/cache
