@@ -17,5 +17,5 @@
     dest: "{{ ansistrano_shared_path }}/.env"
 - name: LARAVEL | Dir & File permission {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
   shell: |
-    sudo chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
-    sudo chmod -R ug+rwx {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+    chgrp -R www-data {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
+    chmod -R ug+rwx {{ ansistrano_release_path.stdout }}/storage {{ ansistrano_release_path.stdout }}/bootstrap/cache
